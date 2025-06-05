@@ -64,3 +64,16 @@ resource "azurerm_storage_container" "demo_container" {
   storage_account_name  = azurerm_storage_account.demo_storage_account.name
   container_access_type = "private" # No public access to the container
 }
+
+data "azurerm_storage_account" "demo" {
+  name                = azurerm_storage_account.demo_storage_account.name
+  resource_group_name = azurerm_resource_group.demo_rg.name
+}
+
+resource "azurerm_storage_blob" "emea_transactions" {
+  name                   = "customer_transactions_emea.csv"
+  storage_account_name   = azurerm_storage_account.demo_storage_account.name
+  storage_container_name = azurerm_storage_container.demo_container.name
+  type                   = "Block"
+  source                 = "${path.module}/../data/customer_transactions_emea.csv"
+}

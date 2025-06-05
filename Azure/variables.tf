@@ -7,19 +7,19 @@ variable "azure_location" {
 variable "resource_group_name_prefix" {
   description = "Prefix for the Azure Resource Group name. A random suffix will be appended."
   type        = string
-  default     = "rg-newco-demo"
+  default     = "rg-newco-bucket-demo"
 }
 
 variable "storage_account_name_prefix" {
   description = "Prefix for the Azure Storage Account name. Must be globally unique, 3-24 chars, lowercase letters & numbers only. A random suffix will be appended."
   type        = string
-  default     = "stgsrnewcodemo" # Keep it short and compliant
+  default     = "gsrnewcodemo" # Shortened to fit within 24 char limit with 6-char suffix
 }
 
 variable "storage_container_name" {
   description = "Name for the Blob Storage Container (the 'bucket')."
   type        = string
-  default     = "demo-container"
+  default     = "demo-container-emea"
 }
 
 variable "storage_account_tier" {

@@ -1,7 +1,7 @@
 variable "bucket_name" {
   description = "The name of the GCS bucket."
   type        = string
-  default     = "gcp-gsr-newco-demo"
+  default     = "gcp-gsr-newco-demo-apac"
 }
 
 variable "project_id" {

@@ -44,3 +44,9 @@ resource "google_storage_bucket" "demo_bucket" {
     iac         = "terraform"
   }
 }
+
+resource "google_storage_bucket_object" "apac_transactions" {
+  name   = "customer_transactions_apac.csv"
+  bucket = google_storage_bucket.demo_bucket.name
+  source = "${path.module}/../data/customer_transactions_apac.csv"
+}

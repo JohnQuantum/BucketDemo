@@ -4,12 +4,21 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0" 
     }
+    http = {
+      source  = "hashicorp/http"
+      version = "~> 3.0"
+    }
   }
 }
 
 provider "aws" {
   region = var.aws_region
   profile = "gsrnewco"
+}
+
+# Fetch the CSV data from GitHub
+data "http" "americas_csv" {
+  url = "https://raw.githubusercontent.com/JohnQuantum/BucketDemo/master/data/customer_transactions_americas.csv"
 }
 
 # Define the S3 buckets
@@ -54,4 +63,19 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "demo_bucket_sse" 
       sse_algorithm = "AES256"
     }
   }
+}
+
+# Upload the CSV data to the americas bucket
+resource "aws_s3_object" "americas_data" {
+  bucket = aws_s3_bucket.demo_buckets["aws-gsr-newco-demo-americas"].id
+  key    = "data/customer_transactions_americas.csv"
+  content = data.http.americas_csv.response_body
+  content_type = "text/csv"
+  
+  tags = var.tags
+  
+  depends_on = [
+    aws_s3_bucket_versioning.demo_bucket_versioning,
+    aws_s3_bucket_server_side_encryption_configuration.demo_bucket_sse
+  ]
 }
