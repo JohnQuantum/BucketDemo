@@ -1,3 +1,5 @@
 GCP/.terraform/
+AWS/.terraform/
+Azure/.terraform/
 *.tfstate
 *.tfstate.backup
