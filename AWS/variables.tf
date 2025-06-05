@@ -4,10 +4,13 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
-variable "bucket_name_prefix" {
-  description = "A prefix for the S3 bucket name. A random suffix will be appended to ensure uniqueness."
-  type        = string
-  default     = "aws-gsr-newco-demo"
+variable "bucket_names" {
+  description = "List of S3 bucket names to create."
+  type        = list(string)
+  default     = [
+    "aws-gsr-newco-demo-americas",
+    "aws-gsr-newco-demo-global"
+  ]
 }
 
 variable "tags" {
